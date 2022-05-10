@@ -11,10 +11,12 @@ body {
 }
 
 #map {
-    height: 200px;
-    width: 400px;
+    height: 85vh;
+    width: 50vw;
 }
 
-.topRight {
-    float: right;
+.title {
+    font-size: 5vw;
+    color: cornsilk;
+    text-shadow: 2px 2px 4px white;
 }
