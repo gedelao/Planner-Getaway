@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planner-Getaway Activities</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="activities.js" defer></script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwFz89HsDDFl_dGv9Y04Hi41jBGrli2ak&libraries=places"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+</head>
+
+<body>
+  <h1 class="text-center title">Planner-Getaway</h1>
+  <div class="container">
+    <div class="row">
+      <form class="col activities-input-form">
+        <div class="input-group mt-3 mb-3">
+          <input type="text" class="form-control activities-user-input" placeholder="What activities are you planning?"
+            aria-label="Recipient's username" aria-describedby="button-addon2" />
+          <button class="btn btn-primary btn-outline-warning user-btn" type="submit" id="button-addon2">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="container justify-content-evenly">
+    <div class="row weather justify-content-between">
+        <!-- weather in here -->
+        
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-end">
+      <div class="col mt-4">
+        <div class="card border-primary mb-3" style="max-width: 18rem">
+          <div class="card-header">Results</div>
+          <div class="card-body text-primary">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">An item</li>
+              <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card border-secondary mb-3" style="max-width: 18rem">
+          <div class="card-header">Your List</div>
+          <div class="card-body text-secondary">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">An item</li>
+              <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-4 mb-5" id="map">
+        <!-- Google maps embedded here -->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
