@@ -51,3 +51,13 @@ body {
     flex-direction: row;
     margin-bottom: 0;
 }
+
+.results-list {
+    height: 30vh;
+    overflow: auto;
+}
+
+.itinerary-list {
+    height: 30vh;
+    overflow: auto;
+}
