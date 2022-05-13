@@ -106,8 +106,10 @@ function createMarker(result) {
     position: result.geometry.location,
     map: window.map,
     label: labels[labelIndex++ % labels.length],
+    title: result.name,
   });
   markers.push(marker)
+  markerInfo(marker)
 }
 
 markers = []
@@ -140,6 +142,7 @@ activitiesInputForm.addEventListener("submit", (e) => {
           bounds.extend(results[i].geometry.location);
         }
         window.results = results
+        console.log(results)
         renderList(results)
         map.fitBounds(bounds);
       }
@@ -155,7 +158,7 @@ function renderList(resultsData) {
   const resultsHtmlArray = resultsData.map(function(currentResult,index) {
     const alreadyAdded = itinerary.some(item => item.place_id == currentResult.place_id)
       return `
-      <li class="list-group-item results">${index+1} ${currentResult.name}<button data-id="${currentResult.place_id}" class="addbtn ${alreadyAdded? "d-none" : ""}">Add</button></li>`
+      <li class="list-group-item results">${index+1} ${currentResult.name}<button data-id="${currentResult.place_id}" class="btn btn-sm p-0 m-1 btn-primary addbtn ${alreadyAdded? "d-none" : ""}">Add</button></li>`
   })
   resultsList.innerHTML = resultsHtmlArray.join('')
   addandRemove()
@@ -165,7 +168,7 @@ function renderItinerary(itinerarydata) {
   const itineraryList = document.querySelector(".itinerary-list");
   const itineraryHtmlArray = itinerarydata.map(function(currentResult,index) {
     return `
-    <li class="list-group-item itinerary-item">${index+1} ${currentResult.name}<button data-id="${currentResult.place_id}" class="removebtn">Remove</button></li>`
+    <li class="list-group-item itinerary-item">${index+1} ${currentResult.name}<button data-id="${currentResult.place_id}" class="removebtn btn btn-danger btn-sm p-0 m-1">Remove</button></li>`
 })
   itineraryList.innerHTML = itineraryHtmlArray.join('')
   const listOfResults = document.querySelectorAll(".itinerary-item");
@@ -189,3 +192,12 @@ function renderItinerary(itinerarydata) {
 
 let itinerary = JSON.parse(localStorage.getItem('itinerary'))
 renderItinerary(itinerary)
+
+function markerInfo(marker) {
+  const infoWindow = new google.maps.InfoWindow()
+    marker.addListener("click", () => {
+      infoWindow.close();
+      infoWindow.setContent(marker.getTitle());
+      infoWindow.open(marker.getMap(), marker);
+    });
+}
