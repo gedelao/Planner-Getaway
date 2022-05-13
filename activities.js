@@ -107,25 +107,23 @@ function createMarker(result) {
     map: window.map,
     label: labels[labelIndex++ % labels.length],
   });
-  // markers.push(marker)
+  markers.push(marker)
 }
 
-// let markers = []
-// function deleteMarker() {
-//   for (let i=0; i < markers.length; i++) {
-//     markers[i].setMap(map)
-//   }
-//   markers = []
-// }
+markers = []
+function deleteMarker() {
+  for (let i=0; i < markers.length; i++) {
+    markers[i].setMap(null)
+  }
+}
 
 const activitiesInputForm = document.querySelector(".activities-input-form");
 activitiesInputForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  deleteMarker()
   const activitiesInputValue = document.querySelector(".activities-user-input");
   const inputValue = activitiesInputValue.value;
   const urlEncodedInputValue = encodeURIComponent(inputValue);
-  console.log(inputValue);
-  console.log(latitude, longitude);
   service = new google.maps.places.PlacesService(map);
   service.nearbySearch(
     {
@@ -146,6 +144,7 @@ activitiesInputForm.addEventListener("submit", (e) => {
       }
     }
     );
+    activitiesInputForm.reset()
   });
 
 
