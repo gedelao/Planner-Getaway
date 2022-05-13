@@ -35,10 +35,14 @@ function deleteMarker() {
 }
 
 // info window for markers
+let oldInfoWindow = false
 function markerInfo(marker) {
   const infoWindow = new google.maps.InfoWindow()
     marker.addListener("click", () => {
-      infoWindow.close();
+      if (oldInfoWindow) {
+        oldInfoWindow.close();
+     }
+      oldInfoWindow = infoWindow
       infoWindow.setContent(marker.getTitle());
       infoWindow.open(marker.getMap(), marker);
     });
