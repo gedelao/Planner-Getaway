@@ -115,6 +115,7 @@ function deleteMarker() {
   for (let i=0; i < markers.length; i++) {
     markers[i].setMap(null)
   }
+  markers = []
 }
 
 const activitiesInputForm = document.querySelector(".activities-input-form");
@@ -150,7 +151,7 @@ activitiesInputForm.addEventListener("submit", (e) => {
 
 function renderList(resultsData) {
   const resultsList = document.querySelector(".results-list");
-  let itinerary = JSON.parse(localStorage.getItem('itinerary'))
+  let itinerary = JSON.parse(localStorage.getItem('itinerary')) ?? []
   const resultsHtmlArray = resultsData.map(function(currentResult,index) {
     const alreadyAdded = itinerary.some(item => item.place_id == currentResult.place_id)
       return `
