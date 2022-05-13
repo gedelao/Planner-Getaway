@@ -19,8 +19,10 @@ function createMarker(result) {
     map: window.map,
     animation: google.maps.Animation.DROP,
     label: labels[labelIndex++ % labels.length],
+    title: result.name,
   });
   markers.push(marker)
+  markerInfo(marker)
 }
 
 // delete markers
@@ -57,6 +59,7 @@ activitiesInputForm.addEventListener("submit", (e) => {
           bounds.extend(results[i].geometry.location);
         }
         window.results = results
+
         // renders into Results list
         renderList(results)
         map.fitBounds(bounds);
@@ -164,10 +167,10 @@ function renderWeather(data) {
 function renderList(resultsData) {
   const resultsList = document.querySelector(".results-list");
   let itinerary = JSON.parse(localStorage.getItem('itinerary')) ?? []
-  const resultsHtmlArray = resultsData.map(function(currentResult, index) {
+  const resultsHtmlArray = resultsData.map(function(currentResult,index) {
     const alreadyAdded = itinerary.some(item => item.place_id == currentResult.place_id)
       return `
-      <li class="list-group-item results">${index+1}. ${currentResult.name}<button data-id="${currentResult.place_id}" class="addBtn ${alreadyAdded? "d-none" : ""}">Add</button></li>`
+      <li class="list-group-item results">${index+1} ${currentResult.name}<button data-id="${currentResult.place_id}" class="btn btn-sm p-0 m-1 btn-primary addBtn ${alreadyAdded? "d-none" : ""}">Add</button></li>`
   })
   resultsList.innerHTML = resultsHtmlArray.join('')
   add()
@@ -178,7 +181,7 @@ function renderItinerary(itineraryData) {
   const itineraryList = document.querySelector(".itinerary-list");
   const itineraryHtmlArray = itineraryData.map(function(currentResult,index) {
     return `
-    <li class="list-group-item itinerary-item">${index+1}. ${currentResult.name}<button data-id="${currentResult.place_id}" class="removeBtn">Remove</button></li>`
+    <li class="list-group-item itinerary-item">${index+1} ${currentResult.name}<button data-id="${currentResult.place_id}" class="removeBtn btn btn-danger btn-sm p-0 m-1">Remove</button></li>`
 })
   itineraryList.innerHTML = itineraryHtmlArray.join('')
   const listOfResults = document.querySelectorAll(".itinerary-item");
@@ -203,3 +206,12 @@ function renderItinerary(itineraryData) {
 
 let itinerary = JSON.parse(localStorage.getItem('itinerary'))
 renderItinerary(itinerary)
+
+function markerInfo(marker) {
+  const infoWindow = new google.maps.InfoWindow()
+    marker.addListener("click", () => {
+      infoWindow.close();
+      infoWindow.setContent(marker.getTitle());
+      infoWindow.open(marker.getMap(), marker);
+    });
+}
